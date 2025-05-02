@@ -1,47 +1,59 @@
 <script>
+  import "./app.css";
   let standardInput;
-  var result;
+  var result = "";
   let selected = "";
-  let isOpen = false;
+  let IsOpen = false;
   function convert_lbs_to_kg() {
-    const val = parseFloat(standardInput.value);
+    const val = standardInput;
     if (!isNaN(val)) {
       result = val * 0.4535 + " Kg";
     } else {
       result = "Invalid input";
     }
+    IsOpen = false;
   }
 
   function convert_cel_to_f() {
-    const val = parseFloat(standardInput.value);
+    const val = standardInput;
     if (!isNaN(val)) {
       result = val * 1.8 + 32 + " F";
     } else {
       result = "Invalid input";
     }
+    IsOpen = false;
   }
 
   function convert_km_to_m() {
-    const val = parseFloat(standardInput.value);
+    const val = standardInput;
     if (!isNaN(val)) {
       result = val * 1000 + " Mtrs";
     } else {
       result = "Invalid input";
     }
+    IsOpen = false;
+  }
+
+  function toggleDropdown() {
+    IsOpen = !IsOpen;
   }
 </script>
 
-<h1>CALCULATOR</h1>
+<div
+  class="header container mx-auto px-10 bg-blue-400 mt-2 rounded-xl items-center justify-center"
+>
+  <h1 class="headerText bg-white w-50 container mx-auto px-5">CALCULATOR</h1>
+</div>
 <div class="Calc_Body">
   <div class="Calc_Input">
     <p>Click below to enter</p>
-    <input bind:this={standardInput} placeholder="Enter any number" /><br />
+    <input bind:value={standardInput} placeholder="Enter any number" /><br />
     <p>Select a Unit to convert</p>
     <div class="dropdown">
-      <button on:click={() => (isOpen = !isOpen)}>
-        Select Conversion {isOpen ? "▲" : "▼"}
+      <button on:click={toggleDropdown}>
+        Select Conversion {IsOpen ? "▲" : "▼"}
       </button>
-      {#if isOpen}
+      {#if IsOpen}
         <ul>
           <li>
             <button type="button" on:click={convert_lbs_to_kg}
